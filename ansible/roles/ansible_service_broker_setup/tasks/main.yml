@@ -23,17 +23,13 @@
     register: new_asb_project
     when: project.stdout.find( asb_project ) == -1
   
-  - name: Check not passthrough termination.
-    fail:
-      msg: The passthrough termination option is not valid
-    when: broker_endpoint_termination|lower == "passthrough"
-
   - name: Check that termination and insecure settings will work
     fail:
       msg: "The current configuration of termination: {{ broker_endpoint_termination|lower }} 
       and insecure: {{ broker_insecure_mode|lower }} is not valid must change one of them."
     when: (not broker_insecure_mode|bool and broker_endpoint_termination|lower == "edge") or
-          (broker_insecure_mode|bool and broker_endpoint_termination == "reencrypt")
+          (broker_insecure_mode|bool and broker_endpoint_termination == "reencrypt") or
+          (broker_insecure_mode|bool and broker_endpoint_termination == "passthrough") 
 
 
   #####
