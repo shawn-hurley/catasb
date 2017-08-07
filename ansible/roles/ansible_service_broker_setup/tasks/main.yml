@@ -56,6 +56,8 @@
         {{ cmd_process_asb_template }}
         -p REGISTRY_NAME={{ broker_registry_name }}
         -p ENABLE_BASIC_AUTH={{ broker_enable_basic_auth }}
+        -p INSECURE={{ broker_insecure_mode }}
+        -p TERMINATION={{ broker_endpoint_termination }}
     when: "not rcm"
 
   - name: Process template "{{ local_target_asb_template }}"
